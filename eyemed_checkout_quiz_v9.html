@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kehoe Eye Care — EyeMed Checkout Quiz</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css">
+<style>
+/*
+  Kehoe palette
+  Gold (primary):  #C9A84C  — warm antique gold, matches logo
+  Gold dark:       #9E7E2E
+  Gold light bg:   #FBF6E9
+  Gold border:     #E8D48A
+  Charcoal:        #1E1E1E  — near-black used for dark surfaces
+  Charcoal mid:    #2E2E2E
+  Off-white:       #FAF8F4  — warm page background
+*/
+:root{
+  --gold:#C9A84C;--gold-dark:#9E7E2E;--gold-xdark:#7a601e;
+  --gold-light:#FBF6E9;--gold-border:#E8D48A;
+  --char:#1E1E1E;--char-mid:#2E2E2E;--char-light:#3D3D3D;
+  --offwhite:#FAF8F4;--cream:#F4F0E8;--cream-border:#E0D9CC;
+  --green:#166534;--green-light:#f0fdf4;--green-mid:#bbf7d0;
+  --red:#991b1b;--red-light:#fef2f2;--red-mid:#fecaca;
+  --amber:#78350f;--amber-light:#fffbeb;--amber-mid:#fde68a;
+  --g50:#F9FAFB;--g100:#F3F4F6;--g200:#E5E7EB;--g300:#D1D5DB;
+  --g400:#9CA3AF;--g500:#6B7280;--g600:#4B5563;--g700:#374151;--g800:#1F2937;
+  --r:6px;--rm:10px;--rl:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--offwhite);color:var(--g800);padding:0;margin:0}
+.app{width:100%;padding:22px 24px 52px}
+@media(min-width:900px){.app{padding:28px 44px 64px}}
+
+/* ── Header ── */
+.app-header{display:flex;align-items:center;gap:12px;margin-bottom:26px;padding-bottom:16px;border-bottom:3px solid var(--gold)}
+.logo{width:44px;height:44px;background:var(--char);border-radius:var(--rm);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:24px;flex-shrink:0}
+.brand-name{font-size:17px;font-weight:700;color:var(--char);line-height:1.2}
+.brand-sub{font-size:11px;color:var(--gold-dark);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+/* ── Cards ── */
+.card{background:#fff;border:1px solid var(--cream-border);border-radius:var(--rl);overflow:hidden;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card-body{padding:20px 22px}
+
+/* ── Type ── */
+h2{font-size:19px;font-weight:700;color:var(--char);margin-bottom:4px}
+h3{font-size:15px;font-weight:600;color:var(--char);margin-bottom:8px}
+p,li{font-size:13px;color:var(--g500);line-height:1.65}
+.lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g400);margin-bottom:5px;display:block}
+
+/* ── Inputs ── */
+input[type=text],input[type=number],input[type=password],textarea,select{
+  font-size:13px;width:100%;border:1px solid var(--g200);border-radius:var(--r);
+  padding:8px 10px;color:var(--g800);background:#fff;outline:none;
+  transition:border-color .15s,box-shadow .15s;font-family:inherit}
+input:focus,textarea:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+textarea{resize:vertical;min-height:64px}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;font-size:13px;font-weight:500;
+  border-radius:var(--r);border:1px solid var(--g200);background:#fff;color:var(--g700);cursor:pointer;
+  transition:all .12s;font-family:inherit;white-space:nowrap}
+.btn:hover{background:var(--g50);border-color:var(--g300)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-primary{background:var(--char);color:var(--gold);border-color:var(--char)}
+.btn-primary:hover{background:var(--char-mid)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold-dark)}
+.btn-gold:hover{background:var(--gold-dark)}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-danger{color:var(--red);border-color:#fecaca}
+.btn-danger:hover{background:var(--red-light)}
+.btn-lg{padding:11px 26px;font-size:14px;border-radius:var(--rm)}
+
+/* ── Admin tabs ── */
+.admin-tabs{display:flex;background:#fff;border:1px solid var(--cream-border);border-radius:var(--rl) var(--rl) 0 0;overflow:hidden}
+.admin-tab{flex:1;padding:11px 8px;font-size:13px;font-weight:500;color:var(--g500);border:none;background:none;
+  cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .15s;font-family:inherit}
+.admin-tab.active{color:var(--char);border-bottom-color:var(--gold);font-weight:600}
+.admin-body{background:#fff;border:1px solid var(--cream-border);border-top:none;border-radius:0 0 var(--rl) var(--rl);padding:20px;margin-bottom:12px}
+.panel{display:none}.panel.active{display:block}
+
+/* ── Patient banner ── */
+.patient-banner{background:var(--char);padding:16px 20px;display:flex;align-items:center;gap:13px}
+.patient-avatar{width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--char);flex-shrink:0;border:2px solid rgba(201,168,76,.4)}
+.patient-banner-info{flex:1;min-width:0}
+.patient-banner-name{font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.patient-banner-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.q-of-badge{background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.5);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--gold);font-weight:600;flex-shrink:0}
+
+/* ── Quiz tabs ── */
+.quiz-tabs{display:flex;border-bottom:1px solid var(--cream-border);padding:0 16px;background:#fff}
+.quiz-tab{padding:9px 14px;font-size:12px;font-weight:500;color:var(--g500);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s;font-family:inherit;white-space:nowrap}
+.quiz-tab.active{color:var(--char);border-bottom-color:var(--gold);font-weight:600}
+.quiz-tab-body{padding:14px 16px}
+
+/* ── Benefit tables ── */
+.benefit-table{width:100%;border-collapse:collapse;font-size:12px}
+.benefit-table th{text-align:left;padding:6px 8px;background:var(--gold-light);color:var(--gold-dark);font-weight:600;border-bottom:1px solid var(--gold-border);font-size:11px}
+.benefit-table td{padding:5px 8px;border-bottom:1px solid var(--g100);color:var(--g700)}
+.benefit-table .cat-row td{background:var(--char);color:var(--gold);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-bottom:none;padding-top:8px}
+.benefit-table tr:last-child td{border-bottom:none}
+.ben-editor-table{width:100%;border-collapse:collapse;font-size:12px;border:1px solid var(--g200)}
+.ben-editor-table th{text-align:left;padding:6px 8px;background:var(--g50);color:var(--g600);font-weight:600;border-bottom:1px solid var(--g200);font-size:11px}
+.ben-editor-table td{padding:3px 8px;border-bottom:1px solid var(--g100);vertical-align:middle}
+.ben-editor-table .cat-row td{background:var(--gold-light);color:var(--gold-dark);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-bottom:none;padding-top:7px}
+.ben-cell{border:none!important;background:transparent!important;padding:3px 0!important;font-size:12px!important;outline:none!important;box-shadow:none!important;font-family:inherit!important;width:100%!important;color:var(--g700)!important}
+.ben-cell:focus{background:rgba(201,168,76,.1)!important;border-radius:3px!important;padding:3px 4px!important}
+
+/* ── EyeMed elig table ── */
+.em-elig-table{width:100%;border-collapse:collapse;font-size:12px;border:1px solid #C8C8C8;margin-top:8px}
+.em-elig-table th{background:#F5F5F5;color:#333;font-weight:600;padding:7px 10px;border:1px solid #C8C8C8;text-align:left;font-size:11px}
+.em-elig-table td{padding:7px 10px;border:1px solid #C8C8C8;color:#222;vertical-align:middle;font-size:12px}
+.em-elig-check{width:14px;height:14px;border:1px solid #999;border-radius:2px;display:inline-block;background:#fff;vertical-align:middle}
+.cell-input{border:none!important;background:transparent!important;padding:2px 0!important;font-size:13px!important;outline:none!important;box-shadow:none!important;font-family:inherit!important;width:100%!important}
+.cell-input:focus{background:rgba(201,168,76,.1)!important;border-radius:3px!important;padding:2px 4px!important}
+.cell-select{border:none!important;background:transparent!important;font-size:13px!important;font-weight:500!important;font-family:inherit!important;outline:none!important;cursor:pointer!important;padding:2px 0!important;width:auto!important}
+
+/* ── Inline elig bar ── */
+.elig-bar{border-top:1px solid var(--cream-border);background:var(--cream)}
+.elig-bar-header{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;cursor:pointer;user-select:none}
+.elig-bar-left{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--char)}
+.elig-bar-left i{font-size:15px;color:var(--gold)}
+.elig-bar-chevron{font-size:14px;color:var(--g400);transition:transform .2s;flex-shrink:0}
+.elig-bar-chevron.open{transform:rotate(180deg)}
+.elig-detail{display:none;padding:0 14px 12px}
+.elig-detail.open{display:block}
+.elig-detail-note{background:var(--amber-light);border:1px solid var(--amber-mid);border-radius:var(--r);padding:7px 10px;font-size:11px;color:var(--amber);margin-top:8px}
+
+/* ── Superbill ── */
+.superbill-table{width:100%;border-collapse:collapse;margin-bottom:4px}
+.superbill-table th{text-align:left;font-size:10px;color:var(--g400);font-weight:600;padding:3px 0 6px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--g200)}
+.superbill-table th:nth-child(2){text-align:center}
+.superbill-table th:last-child{text-align:right}
+.superbill-table td{padding:7px 0;font-size:13px;color:var(--g700);border-bottom:1px solid var(--g100)}
+.superbill-table td:nth-child(2){text-align:center;color:var(--g500)}
+.superbill-table td:last-child{text-align:right;font-weight:500;color:var(--g800)}
+.superbill-table tr:last-child td{border-bottom:none}
+
+/* ── Answer area ── */
+.answer-area{border-top:1px solid var(--cream-border);padding:14px 16px 18px;background:var(--cream)}
+.dollar-wrap{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--g200);border-radius:var(--rm);padding:0 14px;flex:1;transition:border-color .15s,box-shadow .15s}
+.dollar-wrap:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.18)}
+.dollar-wrap>span{color:var(--g400);font-size:17px;font-weight:500}
+.dollar-wrap input{border:none;background:transparent;font-size:20px;font-weight:600;padding:11px 4px;width:100%;color:var(--g800);outline:none;box-shadow:none!important}
+
+/* ── Feedback ── */
+.feedback{margin-top:12px;padding:14px;border-radius:var(--rm);font-size:13px;line-height:1.65}
+.feedback.correct{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
+.feedback.incorrect{background:var(--red-light);color:var(--red);border:1px solid var(--red-mid)}
+.feedback.partial{background:var(--amber-light);color:var(--amber);border:1px solid var(--amber-mid)}
+
+/* ── Progress ── */
+.prog-wrap{background:var(--g200);border-radius:99px;height:5px;overflow:hidden;margin-top:8px}
+.prog-bar{height:100%;background:var(--gold);border-radius:99px;transition:width .35s}
+.score-badge{background:var(--char);border:2px solid var(--gold);border-radius:var(--rm);padding:6px 16px;text-align:center;flex-shrink:0}
+.score-badge .num{font-size:24px;font-weight:700;color:var(--gold)}
+.score-badge .lbl2{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em}
+
+/* ── Gate ── */
+.gate{display:flex;flex-direction:column;align-items:center;padding:44px 20px;text-align:center;gap:14px}
+.gate-icon{width:80px;height:80px;border-radius:50%;background:var(--char);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:4px;border:3px solid var(--gold)}
+.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:440px;margin-top:10px}
+.mode-card{background:#fff;border:2px solid var(--cream-border);border-radius:var(--rm);padding:26px 16px;cursor:pointer;text-align:center;transition:border-color .15s,box-shadow .15s}
+.mode-card:hover{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.mode-card i{font-size:34px;color:var(--gold);display:block;margin-bottom:10px}
+.mode-card strong{display:block;font-size:14px;font-weight:700;color:var(--char);margin-bottom:3px}
+.mode-card span{font-size:12px;color:var(--g500)}
+
+/* ── List cards ── */
+.list-card{background:var(--g50);border:1px solid var(--cream-border);border-radius:var(--rm);padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:8px}
+.list-card-main{flex:1;min-width:0}
+.list-card-title{font-size:13px;font-weight:600;color:var(--char)}
+.list-card-meta{font-size:11px;color:var(--g400);margin-top:3px;line-height:1.5}
+.list-card-actions{display:flex;gap:5px;flex-shrink:0;align-items:flex-start}
+.reorder-col{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.reorder-btn{background:none;border:1px solid var(--g200);border-radius:4px;color:var(--g400);cursor:pointer;font-size:13px;padding:2px 5px;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .1s;font-family:inherit}
+.reorder-btn:hover{background:var(--gold-light);color:var(--gold-dark);border-color:var(--gold-border)}
+.reorder-btn:disabled{opacity:.25;cursor:default}
+.patient-chip{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;background:var(--gold-light);color:var(--gold-dark);border:1px solid var(--gold-border);margin-left:6px;vertical-align:middle}
+
+/* ── Section box ── */
+.section-box{border:1px solid var(--cream-border);border-radius:var(--rm);overflow:hidden;margin-bottom:14px}
+.section-box-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;background:var(--cream);user-select:none}
+.section-box-hdr .lbl{margin:0}
+.section-box-hdr i.chev{color:var(--g400);transition:transform .2s}
+.section-box-hdr.open i.chev{transform:rotate(90deg)}
+.section-box-body{display:none;padding:14px}
+.section-box-body.open{display:block}
+
+/* ── Line builder ── */
+.line-row{display:grid;grid-template-columns:2fr 65px 110px auto;gap:6px;align-items:center;margin-bottom:6px}
+.remove-btn{background:none;border:none;color:var(--g300);cursor:pointer;font-size:20px;line-height:1;padding:2px 5px;font-family:inherit;transition:color .12s}
+.remove-btn:hover{color:var(--red)}
+
+/* ── Modal ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto}
+.modal{background:#fff;border-radius:var(--rl);padding:24px;width:100%;max-width:640px;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);border-top:4px solid var(--gold)}
+.modal h3{margin-bottom:16px;font-size:17px;color:var(--char)}
+
+/* ── Done / Results ── */
+.done-screen{text-align:center;padding:44px 20px}
+.score-big{font-size:52px;font-weight:700;color:var(--char);line-height:1}
+.score-pct{font-size:22px;color:var(--gold-dark)}
+
+/* ── Utils ── */
+.divider{border:none;border-top:1px solid var(--cream-border);margin:16px 0}
+.hint{font-size:11px;color:var(--g400);margin-top:4px}
+.hidden{display:none!important}
+.flex{display:flex}.gap-2{gap:8px}.gap-1{gap:4px}.items-center{align-items:center}.justify-between{justify-content:space-between}
+.mt-1{margin-top:6px}.mt-2{margin-top:12px}.mt-3{margin-top:20px}
+.mb-1{margin-bottom:6px}.mb-2{margin-bottom:12px}.mb-3{margin-bottom:20px}
+.w-full{width:100%}.text-sm{font-size:12px}
+.text-success{color:var(--green)}.text-danger{color:var(--red)}
+.empty-state{color:var(--g400);font-size:13px;padding:8px 0;margin-bottom:8px}
+@media(max-width:520px){
+  .mode-cards{grid-template-columns:1fr}
+  .line-row{grid-template-columns:1fr 55px 90px auto}
+  .admin-tab{font-size:12px;padding:10px 6px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- Header -->
+<div class="app-header">
+  <div class="logo"><i class="ti ti-eye"></i></div>
+  <div>
+    <div class="brand-name">Kehoe Eye Care</div>
+    <div class="brand-sub">EyeMed Checkout Quiz</div>
+  </div>
+</div>
+
+<!-- ═══ GATE -->
+<div id="view-gate">
+  <div class="card">
+    <div class="gate">
+      <div class="gate-icon"><i class="ti ti-eye-check"></i></div>
+      <h2>EyeMed Checkout Quiz</h2>
+      <p>Are you a staff member taking the quiz, or an admin managing scenarios?</p>
+      <div class="mode-cards">
+        <div class="mode-card" onclick="enterStaff()">
+          <i class="ti ti-user-circle"></i><strong>Staff</strong><span>Take the quiz</span>
+        </div>
+        <div class="mode-card" onclick="showAdminLogin()">
+          <i class="ti ti-shield-lock"></i><strong>Admin</strong><span>Manage scenarios</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN LOGIN -->
+<div id="view-admin-login" class="hidden">
+  <div class="card" style="max-width:380px;margin:0 auto">
+    <div class="card-body">
+      <span class="lbl">Admin access</span>
+      <h3>Enter admin password</h3>
+      <input type="password" id="admin-pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkAdminPw()">
+      <p class="hint mt-1">Default: <code>eyemed123</code></p>
+      <div class="flex gap-2 mt-2">
+        <button class="btn btn-primary" onclick="checkAdminPw()"><i class="ti ti-lock-open"></i> Log in</button>
+        <button class="btn" onclick="showGate()">Back</button>
+      </div>
+      <p id="pw-error" class="text-danger text-sm mt-1 hidden">Incorrect password.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN PANEL -->
+<div id="view-admin" class="hidden">
+  <div class="flex items-center justify-between mb-2">
+    <div><h2>Admin panel</h2><p>Manage patients and quiz scenarios.</p></div>
+    <button class="btn" onclick="showGate()"><i class="ti ti-logout"></i> Exit</button>
+  </div>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="aTab('patients')" id="atab-patients"><i class="ti ti-users"></i> Patients</button>
+    <button class="admin-tab" onclick="aTab('scenarios')" id="atab-scenarios"><i class="ti ti-clipboard-list"></i> Scenarios</button>
+    <button class="admin-tab" onclick="aTab('results')" id="atab-results"><i class="ti ti-chart-bar"></i> Results</button>
+    <button class="admin-tab" onclick="aTab('settings')" id="atab-settings"><i class="ti ti-settings"></i> Settings</button>
+  </div>
+  <div class="admin-body">
+
+    <div id="apanel-patients" class="panel active">
+      <p style="margin-bottom:12px">Create a patient profile once — eligibility and benefits saved here appear automatically on every linked scenario.</p>
+      <div id="patient-list"></div>
+      <button class="btn btn-primary" onclick="openPatientModal()"><i class="ti ti-plus"></i> New patient</button>
+    </div>
+
+    <div id="apanel-scenarios" class="panel">
+      <p style="margin-bottom:12px">Each scenario is one superbill question. Use ↑↓ to reorder. Link each to a patient.</p>
+      <div id="scenario-list"></div>
+      <button class="btn btn-primary" onclick="openScenarioModal()"><i class="ti ti-plus"></i> New scenario</button>
+    </div>
+
+    <div id="apanel-results" class="panel">
+      <span class="lbl">Staff quiz results</span>
+      <p class="hint mb-2">All results are saved in the browser on this device. They persist as long as you don't clear your browser data.</p>
+      <div id="results-list"><p class="empty-state">No submissions yet.</p></div>
+      <button class="btn btn-sm mt-2 btn-danger" onclick="clearResults()"><i class="ti ti-trash"></i> Clear all results</button>
+    </div>
+
+    <div id="apanel-settings" class="panel">
+      <div class="mb-3">
+        <span class="lbl">Change admin password</span>
+        <input type="password" id="new-pw1" placeholder="New password" class="mb-1">
+        <input type="password" id="new-pw2" placeholder="Confirm password">
+        <div class="flex gap-2 items-center mt-2">
+          <button class="btn" onclick="changePw()">Update password</button>
+          <p id="pw-change-msg" class="text-success text-sm hidden"><i class="ti ti-circle-check"></i> Updated!</p>
+        </div>
+      </div>
+      <hr class="divider">
+      <div>
+        <span class="lbl">Data storage info</span>
+        <p>All scenario data and results are saved in this browser's localStorage on <strong>this device</strong>. Since this page is hosted on GitHub Pages, data persists across sessions — just don't clear your browser data. If you ever need to move your setup to a new device, use the export/import below.</p>
+        <div class="mt-2">
+          <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> Export data</button>
+          <p class="hint mt-1" id="export-hint"></p>
+        </div>
+        <div class="mt-2">
+          <span class="lbl" style="font-size:10px">Import data (paste exported JSON)</span>
+          <textarea id="import-box" style="font-size:11px;font-family:monospace;min-height:70px" placeholder="Paste exported data here…"></textarea>
+          <div class="flex gap-2 mt-1 items-center">
+            <button class="btn" onclick="importData()"><i class="ti ti-upload"></i> Import</button>
+            <p id="import-msg" class="text-success text-sm hidden"><i class="ti ti-circle-check"></i> Imported!</p>
+            <p id="import-err" class="text-danger text-sm hidden">Invalid data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PATIENT MODAL -->
+<div id="patient-modal" class="modal-bg hidden">
+  <div class="modal">
+    <h3 id="pm-heading">New patient</h3>
+    <div class="mb-2">
+      <span class="lbl">Patient name / label</span>
+      <input type="text" id="pm-name" placeholder="e.g. Patient 1 or Maria Chen">
+    </div>
+    <div class="mb-2">
+      <span class="lbl">Notes <span style="text-transform:none;font-weight:400;font-size:10px">(optional — shown during quiz)</span></span>
+      <textarea id="pm-notes" style="min-height:48px" placeholder="e.g. Age 45, first-time benefits user this year."></textarea>
+    </div>
+    <div class="section-box">
+      <div class="section-box-hdr open" id="pm-elig-hdr" onclick="toggleBox('pm-elig')">
+        <span class="lbl">Eligibility <span style="text-transform:none;font-weight:400;font-size:10px">— click cells to edit</span></span>
+        <i class="ti ti-chevron-right chev"></i>
+      </div>
+      <div class="section-box-body open" id="pm-elig-body">
+        <div style="overflow-x:auto">
+          <table class="em-elig-table">
+            <thead><tr><th style="width:26px"></th><th>Service</th><th>Member is Eligible?</th><th>Member Eligible As Of*</th><th>Service Frequency</th></tr></thead>
+            <tbody id="pm-elig-rows"></tbody>
+          </table>
+        </div>
+        <div class="mt-2">
+          <span class="lbl" style="font-size:10px">Eligibility note <span style="text-transform:none;font-weight:400">(optional)</span></span>
+          <input type="text" id="pm-elig-note" placeholder="e.g. Frame allowance already used in April.">
+        </div>
+      </div>
+    </div>
+    <div class="section-box">
+      <div class="section-box-hdr" id="pm-ben-hdr" onclick="toggleBox('pm-ben')">
+        <span class="lbl">Benefit schedule <span style="text-transform:none;font-weight:400;font-size:10px">— EyeMed defaults pre-filled, edit "Member cost" column as needed</span></span>
+        <i class="ti ti-chevron-right chev"></i>
+      </div>
+      <div class="section-box-body" id="pm-ben-body">
+        <div style="overflow-x:auto;margin-top:4px">
+          <table class="ben-editor-table">
+            <thead><tr><th style="width:60%">Service</th><th>Member cost <em style="font-weight:400">(editable)</em></th></tr></thead>
+            <tbody id="pm-ben-rows"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-sm mt-2" onclick="resetBenEditor()"><i class="ti ti-refresh"></i> Reset to EyeMed defaults</button>
+      </div>
+    </div>
+    <div class="flex gap-2 items-center">
+      <button class="btn btn-primary" onclick="savePatient()"><i class="ti ti-check"></i> Save patient</button>
+      <button class="btn" onclick="closePatientModal()">Cancel</button>
+      <p id="pm-err" class="text-danger text-sm hidden">Please enter a patient name.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCENARIO MODAL -->
+<div id="scenario-modal" class="modal-bg hidden">
+  <div class="modal">
+    <h3 id="sm-heading">New scenario</h3>
+    <div class="mb-2">
+      <span class="lbl">Scenario title</span>
+      <input type="text" id="sm-title" placeholder="e.g. Scenario A — glasses with progressives">
+    </div>
+    <div class="mb-2">
+      <span class="lbl">Patient</span>
+      <select id="sm-patient"><option value="">— Select a patient —</option></select>
+      <p class="hint">The selected patient's eligibility and benefits appear automatically during this question.</p>
+    </div>
+    <div class="mb-2">
+      <span class="lbl">Additional notes <span style="text-transform:none;font-weight:400;font-size:10px">(optional)</span></span>
+      <textarea id="sm-notes" style="min-height:48px" placeholder="e.g. Patient chose disposable contacts."></textarea>
+    </div>
+    <span class="lbl">Superbill line items</span>
+    <div style="display:grid;grid-template-columns:2fr 65px 110px auto;gap:6px;margin-bottom:5px">
+      <span class="lbl" style="margin:0;font-size:10px">Service</span>
+      <span class="lbl" style="margin:0;font-size:10px">Qty</span>
+      <span class="lbl" style="margin:0;font-size:10px">Retail $</span>
+      <span></span>
+    </div>
+    <div id="sm-lines"></div>
+    <button class="btn btn-sm mt-1" onclick="addLine()"><i class="ti ti-plus"></i> Add line</button>
+    <hr class="divider">
+    <div class="mb-2">
+      <span class="lbl">Correct answer — patient owes ($)</span>
+      <input type="number" id="sm-answer" placeholder="e.g. 75.00" min="0" step="0.01">
+    </div>
+    <div class="mb-3">
+      <span class="lbl">Step-by-step explanation <span style="text-transform:none;font-weight:400;font-size:10px">(shown to staff after they answer)</span></span>
+      <textarea id="sm-explanation" style="min-height:90px" placeholder="e.g. Exam copay = $10. Progressive Standard = $90. AR Standard = $45. Total = $145.&#10;&#10;Tip: frame was under the $130 allowance so $0, but the AR copay is fixed."></textarea>
+    </div>
+    <div class="flex gap-2 items-center">
+      <button class="btn btn-primary" onclick="saveScenario()"><i class="ti ti-check"></i> Save scenario</button>
+      <button class="btn" onclick="closeScenarioModal()">Cancel</button>
+      <p id="sm-err" class="text-danger text-sm hidden"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STAFF -->
+<div id="view-staff" class="hidden">
+  <div id="staff-name-gate" class="card">
+    <div class="card-body">
+      <span class="lbl">Before you begin</span>
+      <h3>What's your name?</h3>
+      <p class="mb-2">Your score will be recorded when you finish.</p>
+      <input type="text" id="staff-name-input" placeholder="Your first and last name" onkeydown="if(event.key==='Enter')startStaff()">
+      <div class="flex gap-2 mt-2">
+        <button class="btn btn-primary btn-lg" onclick="startStaff()"><i class="ti ti-player-play"></i> Start quiz</button>
+        <button class="btn" onclick="showGate()">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="staff-quiz" class="hidden">
+    <!-- Progress header -->
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-body" style="padding-bottom:14px">
+        <div class="flex items-center justify-between">
+          <div style="flex:1;min-width:0">
+            <div class="lbl" style="margin-bottom:2px" id="sq-prog-lbl">Question 1 of 1</div>
+            <div style="font-size:16px;font-weight:600;color:var(--char);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="sq-title"></div>
+          </div>
+          <div class="score-badge" style="margin-left:14px">
+            <div class="num" id="sq-score">0</div>
+            <div class="lbl2">correct</div>
+          </div>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="sq-prog-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Question card -->
+    <div class="card">
+      <div class="patient-banner">
+        <div class="patient-avatar" id="sq-patient-avatar">?</div>
+        <div class="patient-banner-info">
+          <div class="patient-banner-name" id="sq-patient-name">No patient assigned</div>
+          <div class="patient-banner-sub" id="sq-patient-sub"></div>
+        </div>
+        <div class="q-of-badge hidden" id="sq-qof-badge"></div>
+      </div>
+
+      <div class="quiz-tabs">
+        <button class="quiz-tab active" onclick="qTab('superbill')" id="qtab-superbill">Superbill</button>
+        <button class="quiz-tab" onclick="qTab('benefits')" id="qtab-benefits">Benefit schedule</button>
+      </div>
+      <div id="qpanel-superbill" class="quiz-tab-body">
+        <div id="sq-notes" class="hidden" style="background:var(--amber-light);border:1px solid var(--amber-mid);border-radius:var(--r);padding:8px 11px;margin-bottom:12px;font-size:12px;color:var(--amber)"></div>
+        <div id="sq-lines"></div>
+      </div>
+      <div id="qpanel-benefits" class="quiz-tab-body hidden">
+        <div style="overflow-x:auto"><table class="benefit-table" id="sq-ben-table"></table></div>
+      </div>
+
+      <!-- Eligibility — open by default, plain text (no colored Yes/No) -->
+      <div class="elig-bar" id="sq-elig-bar">
+        <div class="elig-bar-header" onclick="toggleEligBar()">
+          <div class="elig-bar-left">
+            <i class="ti ti-id-badge-2" aria-hidden="true"></i>
+            Patient eligibility
+          </div>
+          <i class="ti ti-chevron-down elig-bar-chevron open" id="elig-chev" aria-hidden="true"></i>
+        </div>
+        <div class="elig-detail open" id="sq-elig-detail">
+          <div style="overflow-x:auto" id="sq-elig-table-wrap"></div>
+          <div id="sq-elig-note-display"></div>
+        </div>
+      </div>
+
+      <!-- Answer -->
+      <div class="answer-area">
+        <span class="lbl" style="margin-bottom:8px;display:block">What does this patient owe today?</span>
+        <div class="flex gap-2 items-center">
+          <div class="dollar-wrap">
+            <span>$</span>
+            <input type="number" id="sq-answer" placeholder="0.00" min="0" step="0.01" onkeydown="if(event.key==='Enter')grade()">
+          </div>
+          <button class="btn btn-primary" id="sq-grade-btn" onclick="grade()" style="padding:12px 20px;font-size:14px"><i class="ti ti-check"></i> Check</button>
+        </div>
+        <div id="sq-feedback"></div>
+      </div>
+    </div>
+
+    <div id="sq-next-wrap" class="hidden mt-2">
+      <button class="btn btn-primary btn-lg w-full" id="sq-next-btn"></button>
+    </div>
+  </div>
+
+  <div id="staff-done" class="hidden">
+    <div class="card">
+      <div class="done-screen">
+        <div style="font-size:56px;margin-bottom:16px">🏆</div>
+        <h2 style="font-size:24px;margin-bottom:8px">Quiz complete!</h2>
+        <div class="score-big" id="done-score"></div>
+        <div class="score-pct" id="done-total"></div>
+        <p style="margin:16px auto;max-width:320px" id="done-msg"></p>
+        <button class="btn btn-primary btn-lg" onclick="showGate()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /app -->
+
+<script>
+// ═══ DEFAULTS
+const DEFAULT_BENEFITS=[
+  {cat:"Exam services"},{s:"Exam",c:"$10 copay"},{s:"Retinal imaging",c:"Up to $39"},
+  {cat:"Contact lens fit & follow-up"},{s:"Fit and follow-up — Standard",c:"Up to $40"},{s:"Fit and follow-up — Premium",c:"10% off retail price"},
+  {cat:"Frame"},{s:"Frame",c:"$0 copay; 20% off balance over $130 allowance"},
+  {cat:"Lenses"},
+  {s:"Single vision",c:"$25 copay"},{s:"Bifocal",c:"$25 copay"},{s:"Trifocal",c:"$25 copay"},
+  {s:"Progressive — Standard",c:"$90 copay"},{s:"Progressive — Premium Tier 1",c:"$110 copay"},
+  {s:"Progressive — Premium Tier 2",c:"$120 copay"},{s:"Progressive — Premium Tier 3",c:"$135 copay"},
+  {s:"Progressive — Premium Tier 4",c:"$90 copay; 20% off retail less $120 allowance"},
+  {cat:"Lens options"},
+  {s:"Anti-reflective — Standard",c:"$45"},{s:"Anti-reflective — Premium Tier 1",c:"$57"},
+  {s:"Anti-reflective — Premium Tier 2",c:"$68"},{s:"Anti-reflective — Premium Tier 3",c:"20% off retail"},
+  {s:"Photochromic (non-glass)",c:"$75"},{s:"Polycarbonate — age 19+",c:"$40"},
+  {s:"Polycarbonate — under 19",c:"$0 copay"},{s:"Scratch coating",c:"$15"},
+  {s:"Tint (solid & gradient)",c:"$15"},{s:"UV treatment",c:"$15"},{s:"All other lens options",c:"20% off retail"},
+  {cat:"Contact lenses"},
+  {s:"Conventional contacts",c:"$0 copay; 15% off balance over $130 allowance"},
+  {s:"Disposable contacts",c:"$0 copay; 100% of balance over $130 allowance"},
+  {s:"Medically necessary contacts",c:"$0 copay"},
+];
+const DEFAULT_ELIG=[
+  {service:"Exam",eligible:"Yes",asOf:"",frequency:"Once every calendar year"},
+  {service:"Lenses",eligible:"Yes",asOf:"",frequency:"Once every calendar year"},
+  {service:"Frame",eligible:"Yes",asOf:"",frequency:"Once every calendar year"},
+  {service:"Contact Lenses",eligible:"Yes",asOf:"",frequency:"Once every calendar year"},
+  {service:"Contact Lens Fit and Follow-up",eligible:"Yes",asOf:"",frequency:"Unlimited"},
+];
+
+// ═══ STORAGE — localStorage works on GitHub Pages (direct URL, not iframed)
+const SK='kehoe_eyemed_v9';
+const RK='kehoe_eyemed_v9_results';
+let DB={patients:[],scenarios:[],adminPw:'eyemed123'};
+let RESULTS=[];
+
+function loadDB(){try{const d=localStorage.getItem(SK);if(d){const p=JSON.parse(d);if(p.patients)DB=p;}}catch(e){}}
+function saveDB(){try{localStorage.setItem(SK,JSON.stringify(DB));}catch(e){alert('Storage failed: '+e.message);}}
+function loadResults(){try{const r=localStorage.getItem(RK);if(r)RESULTS=JSON.parse(r)||[];}catch(e){}}
+function saveResults(){try{localStorage.setItem(RK,JSON.stringify(RESULTS));}catch(e){}}
+loadDB();loadResults();
+
+// ═══ EXPORT / IMPORT
+function exportData(){
+  const json=JSON.stringify({patients:DB.patients,scenarios:DB.scenarios,adminPw:DB.adminPw},null,2);
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(json).then(()=>{
+        document.getElementById('export-hint').textContent='Copied to clipboard!';
+      }).catch(()=>fallbackCopy(json));
+    }else fallbackCopy(json);
+  }catch(e){fallbackCopy(json);}
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+  document.execCommand('copy');document.body.removeChild(ta);
+  document.getElementById('export-hint').textContent='Copied to clipboard!';
+}
+function importData(){
+  try{
+    const p=JSON.parse(document.getElementById('import-box').value);
+    if(!Array.isArray(p.scenarios))throw 0;
+    DB.patients=p.patients||[];DB.scenarios=p.scenarios||[];
+    if(p.adminPw)DB.adminPw=p.adminPw;
+    saveDB();renderPatientList();renderScenarioList();
+    show('import-msg');hide('import-err');
+    setTimeout(()=>hide('import-msg'),3000);
+  }catch(e){show('import-err');hide('import-msg');}
+}
+function clearResults(){
+  if(!confirm('Clear all staff results? This cannot be undone.'))return;
+  RESULTS=[];saveResults();renderResults();
+}
+
+// ═══ UTILS
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function show(id){document.getElementById(id).classList.remove('hidden');}
+function hide(id){document.getElementById(id).classList.add('hidden');}
+function showGate(){['view-admin-login','view-admin','view-staff'].forEach(hide);show('view-gate');}
+function showAdminLogin(){hide('view-gate');show('view-admin-login');document.getElementById('admin-pw-input').value='';hide('pw-error');}
+function enterStaff(){hide('view-gate');show('view-staff');show('staff-name-gate');hide('staff-quiz');hide('staff-done');document.getElementById('staff-name-input').value='';}
+function checkAdminPw(){
+  loadDB();
+  if(document.getElementById('admin-pw-input').value===DB.adminPw){
+    hide('view-admin-login');show('view-admin');renderPatientList();renderScenarioList();renderResults();
+  }else show('pw-error');
+}
+function aTab(t){
+  ['patients','scenarios','results','settings'].forEach(n=>{
+    document.getElementById('atab-'+n).classList.toggle('active',n===t);
+    document.getElementById('apanel-'+n).classList.toggle('active',n===t);
+  });
+  if(t==='results')renderResults();
+}
+function qTab(t){
+  ['superbill','benefits'].forEach(n=>{
+    document.getElementById('qtab-'+n).classList.toggle('active',n===t);
+    document.getElementById('qpanel-'+n).classList.toggle('hidden',n!==t);
+  });
+}
+function toggleBox(id){
+  const hdr=document.getElementById(id+'-hdr');const body=document.getElementById(id+'-body');
+  hdr.classList.toggle('open');body.classList.toggle('open');
+  hdr.querySelector('.chev').style.transform=hdr.classList.contains('open')?'rotate(90deg)':'';
+}
+let eligOpen=true;
+function toggleEligBar(){
+  eligOpen=!eligOpen;
+  document.getElementById('sq-elig-detail').classList.toggle('open',eligOpen);
+  document.getElementById('elig-chev').classList.toggle('open',eligOpen);
+}
+
+// ═══ ELIG EDITOR
+function buildEligEditor(tbodyId,rows){
+  rows=(rows||DEFAULT_ELIG).map(r=>({...r}));
+  const tbody=document.getElementById(tbodyId);tbody.innerHTML='';
+  rows.forEach(row=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><span class="em-elig-check"></span></td>
+      <td><input class="cell-input" type="text" value="${esc(row.service)}" placeholder="Service"></td>
+      <td><select class="cell-select">
+        <option ${row.eligible==='Yes'?'selected':''}>Yes</option>
+        <option ${row.eligible==='No'?'selected':''}>No</option>
+        <option ${row.eligible==='N/A'?'selected':''}>N/A</option>
+      </select></td>
+      <td><input class="cell-input" type="text" value="${esc(row.asOf)}" placeholder="MM/DD/YYYY"></td>
+      <td><input class="cell-input" type="text" value="${esc(row.frequency)}" placeholder="Frequency"></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function getEligRows(tbodyId){
+  return[...document.querySelectorAll('#'+tbodyId+' tr')].map(tr=>{
+    const ins=tr.querySelectorAll('input');const sels=tr.querySelectorAll('select');
+    return{service:ins[0]?.value||'',eligible:sels[0]?.value||'Yes',asOf:ins[1]?.value||'',frequency:ins[2]?.value||''};
+  });
+}
+
+// ═══ BENEFIT EDITOR
+function buildBenEditor(tbodyId,custom){
+  const data=custom||DEFAULT_BENEFITS;
+  const tbody=document.getElementById(tbodyId);tbody.innerHTML='';
+  data.forEach((b)=>{
+    const tr=document.createElement('tr');
+    if(b.cat){tr.className='cat-row';tr.innerHTML=`<td colspan="2">${esc(b.cat)}</td>`;}
+    else tr.innerHTML=`<td style="font-size:12px">${esc(b.s)}</td><td><input class="ben-cell" type="text" value="${esc(b.c)}" placeholder="Cost"></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function getBenefits(tbodyId){
+  const result=[];let di=0;
+  document.querySelectorAll('#'+tbodyId+' tr').forEach(tr=>{
+    if(tr.classList.contains('cat-row')){
+      while(di<DEFAULT_BENEFITS.length&&!DEFAULT_BENEFITS[di].cat)di++;
+      result.push({cat:DEFAULT_BENEFITS[di]?.cat||''});di++;
+    }else{
+      while(di<DEFAULT_BENEFITS.length&&DEFAULT_BENEFITS[di].cat)di++;
+      const inp=tr.querySelector('.ben-cell');
+      result.push({s:DEFAULT_BENEFITS[di]?.s||'',c:inp?.value.trim()||''});di++;
+    }
+  });
+  return result;
+}
+function resetBenEditor(){if(!confirm('Reset to EyeMed defaults?'))return;buildBenEditor('pm-ben-rows',null);}
+
+// ═══ PATIENT MODAL
+let editingPatientIdx=null;
+function openPatientModal(idx){
+  editingPatientIdx=idx??null;
+  const p=(idx!=null)?DB.patients[idx]:null;
+  document.getElementById('pm-heading').textContent=p?'Edit patient':'New patient';
+  document.getElementById('pm-name').value=p?.name||'';
+  document.getElementById('pm-notes').value=p?.notes||'';
+  document.getElementById('pm-elig-note').value=p?.eligNote||'';
+  buildEligEditor('pm-elig-rows',p?.eligRows||null);
+  buildBenEditor('pm-ben-rows',p?.customBenefits||null);
+  hide('pm-err');show('patient-modal');
+}
+function closePatientModal(){hide('patient-modal');}
+function savePatient(){
+  const name=document.getElementById('pm-name').value.trim();
+  if(!name){show('pm-err');return;}
+  const patient={
+    id:(editingPatientIdx!=null)?DB.patients[editingPatientIdx].id:Date.now(),
+    name,notes:document.getElementById('pm-notes').value.trim(),
+    eligRows:getEligRows('pm-elig-rows'),
+    eligNote:document.getElementById('pm-elig-note').value.trim(),
+    customBenefits:getBenefits('pm-ben-rows'),
+  };
+  if(editingPatientIdx!=null)DB.patients[editingPatientIdx]=patient;
+  else DB.patients.push(patient);
+  saveDB();closePatientModal();renderPatientList();renderScenarioList();
+}
+function renderPatientList(){
+  const el=document.getElementById('patient-list');
+  if(!DB.patients.length){el.innerHTML='<p class="empty-state">No patients yet. Create a patient first, then link scenarios to them.</p>';return;}
+  el.innerHTML=DB.patients.map((p,i)=>{
+    const sc=DB.scenarios.filter(s=>s.patientId===p.id).length;
+    return`<div class="list-card">
+      <div class="list-card-main">
+        <div class="list-card-title"><i class="ti ti-user" style="color:var(--gold)"></i> ${esc(p.name)}</div>
+        <div class="list-card-meta">${sc} scenario${sc!==1?'s':''} linked${p.notes?' · '+esc(p.notes.slice(0,60))+(p.notes.length>60?'…':''):''}</div>
+      </div>
+      <div class="list-card-actions">
+        <button class="btn btn-sm" onclick="openPatientModal(${i})"><i class="ti ti-edit"></i> Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deletePatient(${i})"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`;}).join('');
+}
+function deletePatient(i){
+  const p=DB.patients[i];
+  const linked=DB.scenarios.filter(s=>s.patientId===p.id).length;
+  if(!confirm(linked?`Delete "${p.name}"? This will unlink ${linked} scenario${linked!==1?'s':''}.`:`Delete "${p.name}"?`))return;
+  DB.scenarios.forEach(s=>{if(s.patientId===p.id)s.patientId=null;});
+  DB.patients.splice(i,1);saveDB();renderPatientList();renderScenarioList();
+}
+
+// ═══ SCENARIO MODAL
+let editingScenarioIdx=null,lineCounter=0;
+function openScenarioModal(idx){
+  editingScenarioIdx=idx??null;
+  const sc=(idx!=null)?DB.scenarios[idx]:null;
+  document.getElementById('sm-heading').textContent=sc?'Edit scenario':'New scenario';
+  document.getElementById('sm-title').value=sc?.title||'';
+  document.getElementById('sm-notes').value=sc?.notes||'';
+  document.getElementById('sm-answer').value=sc?.answer??'';
+  document.getElementById('sm-explanation').value=sc?.explanation||'';
+  const sel=document.getElementById('sm-patient');
+  sel.innerHTML='<option value="">— Select a patient —</option>';
+  DB.patients.forEach(p=>{
+    const opt=document.createElement('option');opt.value=p.id;opt.textContent=p.name;
+    if(sc?.patientId===p.id)opt.selected=true;sel.appendChild(opt);
+  });
+  document.getElementById('sm-lines').innerHTML='';lineCounter=0;
+  if(sc?.lines?.length)sc.lines.forEach(l=>addLine(l.desc,l.qty,l.retail));
+  else addLine();
+  hide('sm-err');show('scenario-modal');
+}
+function closeScenarioModal(){hide('scenario-modal');}
+function addLine(desc='',qty='',retail=''){
+  const id=++lineCounter;const d=document.createElement('div');d.className='line-row';d.id='sl-'+id;
+  d.innerHTML=`
+    <input type="text" placeholder="Service description" value="${esc(desc)}">
+    <input type="number" placeholder="1" value="${qty}" min="1" step="1" style="text-align:center">
+    <input type="number" placeholder="0.00" value="${retail}" min="0" step="0.01">
+    <button class="remove-btn" onclick="document.getElementById('sl-${id}').remove()">×</button>`;
+  document.getElementById('sm-lines').appendChild(d);
+}
+function getLines(){
+  return[...document.querySelectorAll('#sm-lines .line-row')].map(r=>{
+    const ins=r.querySelectorAll('input');
+    return{desc:ins[0].value.trim(),qty:parseInt(ins[1].value)||1,retail:parseFloat(ins[2].value)||0};
+  }).filter(l=>l.desc);
+}
+function saveScenario(){
+  const title=document.getElementById('sm-title').value.trim();
+  const patientId=document.getElementById('sm-patient').value||null;
+  const notes=document.getElementById('sm-notes').value.trim();
+  const lines=getLines();
+  const answer=parseFloat(document.getElementById('sm-answer').value);
+  const explanation=document.getElementById('sm-explanation').value.trim();
+  const errEl=document.getElementById('sm-err');
+  if(!title){errEl.textContent='Please enter a title.';show('sm-err');return;}
+  if(!lines.length){errEl.textContent='Add at least one line item.';show('sm-err');return;}
+  if(isNaN(answer)){errEl.textContent='Please enter the correct answer.';show('sm-err');return;}
+  if(!explanation){errEl.textContent='Please add a step-by-step explanation.';show('sm-err');return;}
+  const sc={
+    id:(editingScenarioIdx!=null)?DB.scenarios[editingScenarioIdx].id:Date.now(),
+    title,patientId:patientId?Number(patientId):null,notes,lines,answer,explanation
+  };
+  if(editingScenarioIdx!=null)DB.scenarios[editingScenarioIdx]=sc;
+  else DB.scenarios.push(sc);
+  saveDB();closeScenarioModal();renderScenarioList();
+}
+function renderScenarioList(){
+  const el=document.getElementById('scenario-list');
+  if(!DB.scenarios.length){el.innerHTML='<p class="empty-state">No scenarios yet.</p>';return;}
+  el.innerHTML=DB.scenarios.map((sc,i)=>{
+    const p=DB.patients.find(x=>x.id===sc.patientId);
+    return`<div class="list-card">
+      <div class="reorder-col">
+        <button class="reorder-btn" onclick="moveScenario(${i},-1)" ${i===0?'disabled':''}><i class="ti ti-chevron-up"></i></button>
+        <button class="reorder-btn" onclick="moveScenario(${i},1)" ${i===DB.scenarios.length-1?'disabled':''}><i class="ti ti-chevron-down"></i></button>
+      </div>
+      <div class="list-card-main">
+        <div class="list-card-title">${esc(sc.title)}${p?`<span class="patient-chip"><i class="ti ti-user" style="font-size:10px"></i> ${esc(p.name)}</span>`:''}</div>
+        <div class="list-card-meta">${sc.lines.length} line item${sc.lines.length!==1?'s':''} · Answer: $${Number(sc.answer).toFixed(2)}${sc.notes?' · '+esc(sc.notes.slice(0,45))+(sc.notes.length>45?'…':''):''}</div>
+      </div>
+      <div class="list-card-actions">
+        <button class="btn btn-sm" onclick="openScenarioModal(${i})"><i class="ti ti-edit"></i> Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteScenario(${i})"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`;}).join('');
+}
+function moveScenario(i,dir){
+  const j=i+dir;if(j<0||j>=DB.scenarios.length)return;
+  [DB.scenarios[i],DB.scenarios[j]]=[DB.scenarios[j],DB.scenarios[i]];
+  saveDB();renderScenarioList();
+}
+function deleteScenario(i){
+  if(!confirm(`Delete "${DB.scenarios[i].title}"?`))return;
+  DB.scenarios.splice(i,1);saveDB();renderScenarioList();
+}
+
+// ═══ SETTINGS
+function changePw(){
+  const p1=document.getElementById('new-pw1').value;const p2=document.getElementById('new-pw2').value;
+  if(!p1){alert('Enter a password.');return;}if(p1!==p2){alert('Passwords do not match.');return;}
+  DB.adminPw=p1;saveDB();
+  show('pw-change-msg');setTimeout(()=>hide('pw-change-msg'),2500);
+  document.getElementById('new-pw1').value='';document.getElementById('new-pw2').value='';
+}
+function renderResults(){
+  loadResults();
+  const el=document.getElementById('results-list');
+  if(!RESULTS.length){el.innerHTML='<p class="empty-state">No submissions yet.</p>';return;}
+  el.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead><tr>
+      <th style="text-align:left;padding:6px 8px;background:var(--gold-light);border-bottom:1px solid var(--gold-border);font-size:11px;color:var(--gold-dark)">Name</th>
+      <th style="text-align:center;padding:6px 8px;background:var(--gold-light);border-bottom:1px solid var(--gold-border);font-size:11px;color:var(--gold-dark)">Score</th>
+      <th style="text-align:center;padding:6px 8px;background:var(--gold-light);border-bottom:1px solid var(--gold-border);font-size:11px;color:var(--gold-dark)">%</th>
+      <th style="text-align:right;padding:6px 8px;background:var(--gold-light);border-bottom:1px solid var(--gold-border);font-size:11px;color:var(--gold-dark)">Date</th>
+    </tr></thead>
+    <tbody>${RESULTS.slice().reverse().map(r=>`<tr>
+      <td style="padding:7px 8px;border-bottom:1px solid var(--cream-border);font-weight:500;color:var(--char)">${esc(r.name)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid var(--cream-border);text-align:center;color:var(--g600)">${r.score}/${r.total}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid var(--cream-border);text-align:center;font-weight:700;color:${r.score/r.total>=0.8?'var(--green)':'var(--red)'}">${Math.round(r.score/r.total*100)}%</td>
+      <td style="padding:7px 8px;border-bottom:1px solid var(--cream-border);text-align:right;color:var(--g400);font-size:11px">${r.date}</td>
+    </tr>`).join('')}</tbody>
+  </table>`;
+}
+
+// ═══ STAFF QUIZ
+let staffName='',staffQueue=[],staffIdx=0,staffScore=0;
+function startStaff(){
+  staffName=document.getElementById('staff-name-input').value.trim();
+  if(!staffName){alert('Please enter your name.');return;}
+  loadDB();
+  if(!DB.scenarios.length){alert('No scenarios available yet — ask your admin to set up the quiz!');return;}
+  staffQueue=[...DB.scenarios];staffIdx=0;staffScore=0;
+  hide('staff-name-gate');show('staff-quiz');loadQ();
+}
+function initials(name){
+  const p=name.trim().split(/\s+/);
+  return(p.length>=2?p[0][0]+p[p.length-1][0]:name.slice(0,2)).toUpperCase();
+}
+function loadQ(){
+  const sc=staffQueue[staffIdx];
+  const total=staffQueue.length;
+  const patient=DB.patients.find(p=>p.id===sc.patientId)||null;
+  document.getElementById('sq-title').textContent=sc.title;
+  document.getElementById('sq-prog-lbl').textContent=`Question ${staffIdx+1} of ${total}`;
+  document.getElementById('sq-prog-bar').style.width=Math.round(staffIdx/total*100)+'%';
+  document.getElementById('sq-score').textContent=staffScore;
+  // Banner
+  const av=document.getElementById('sq-patient-avatar');
+  const nm=document.getElementById('sq-patient-name');
+  const sub=document.getElementById('sq-patient-sub');
+  const badge=document.getElementById('sq-qof-badge');
+  if(patient){
+    av.textContent=initials(patient.name);nm.textContent=patient.name;
+    sub.textContent=patient.notes||'';sub.style.display=patient.notes?'':'none';
+  }else{av.textContent='?';nm.textContent='No patient assigned';sub.style.display='none';}
+  const pScs=staffQueue.filter(s=>s.patientId===sc.patientId);
+  const qn=pScs.indexOf(sc)+1;
+  if(pScs.length>1){badge.textContent=`Q${qn} of ${pScs.length}`;badge.classList.remove('hidden');}
+  else badge.classList.add('hidden');
+  // Notes
+  const nd=document.getElementById('sq-notes');
+  const noteText=[patient?.notes,sc.notes].filter(Boolean).join(' · ');
+  if(noteText){nd.classList.remove('hidden');nd.innerHTML=`<i class="ti ti-info-circle"></i> ${esc(noteText)}`;}
+  else nd.classList.add('hidden');
+  // Superbill
+  document.getElementById('sq-lines').innerHTML=`
+    <table class="superbill-table">
+      <thead><tr><th>Service</th><th>Qty</th><th>Retail</th></tr></thead>
+      <tbody>${sc.lines.map(l=>`<tr><td>${esc(l.desc)}</td><td>${l.qty||1}</td><td>$${Number(l.retail).toFixed(2)}</td></tr>`).join('')}</tbody>
+    </table>`;
+  // Eligibility — open by default, no colored text
+  eligOpen=true;
+  document.getElementById('sq-elig-detail').classList.add('open');
+  document.getElementById('elig-chev').classList.add('open');
+  const bar=document.getElementById('sq-elig-bar');
+  if(patient?.eligRows?.length){
+    bar.style.display='';
+    document.getElementById('sq-elig-table-wrap').innerHTML=`
+      <table class="em-elig-table">
+        <thead><tr><th style="width:26px"></th><th>Service</th><th>Member is Eligible?</th><th>Member Eligible As Of*</th><th>Service Frequency</th></tr></thead>
+        <tbody>${patient.eligRows.map(r=>`<tr>
+          <td><span class="em-elig-check"></span></td>
+          <td style="font-weight:500">${esc(r.service)}</td>
+          <td>${esc(r.eligible)}</td>
+          <td>${esc(r.asOf||'')}</td>
+          <td>${esc(r.frequency||'')}</td>
+        </tr>`).join('')}</tbody>
+      </table>`;
+    document.getElementById('sq-elig-note-display').innerHTML=patient.eligNote
+      ?`<div class="elig-detail-note"><i class="ti ti-info-circle"></i> ${esc(patient.eligNote)}</div>`:'';
+  }else bar.style.display='none';
+  // Benefits
+  const benData=(patient?.customBenefits?.length)?patient.customBenefits:DEFAULT_BENEFITS;
+  const bt=document.getElementById('sq-ben-table');
+  bt.innerHTML=`<thead><tr><th style="width:65%">Service</th><th>Member cost</th></tr></thead>`;
+  const tb=document.createElement('tbody');
+  benData.forEach(b=>{const tr=document.createElement('tr');
+    if(b.cat){tr.className='cat-row';tr.innerHTML=`<td colspan="2">${esc(b.cat)}</td>`;}
+    else tr.innerHTML=`<td>${esc(b.s)}</td><td>${esc(b.c)}</td>`;
+    tb.appendChild(tr);});
+  bt.appendChild(tb);
+  // Reset
+  document.getElementById('sq-answer').value='';
+  document.getElementById('sq-feedback').innerHTML='';
+  document.getElementById('sq-grade-btn').disabled=false;
+  hide('sq-next-wrap');qTab('superbill');
+}
+function grade(){
+  const sc=staffQueue[staffIdx];
+  const raw=document.getElementById('sq-answer').value;
+  if(raw===''){alert('Please enter an amount.');return;}
+  const userAns=parseFloat(raw);
+  if(isNaN(userAns)){alert('Please enter a valid dollar amount.');return;}
+  document.getElementById('sq-grade-btn').disabled=true;
+  const correct=Number(sc.answer);
+  const diff=Math.abs(userAns-correct);
+  const isCorrect=diff<0.015;const isClose=!isCorrect&&diff<=2;
+  if(isCorrect)staffScore++;
+  document.getElementById('sq-score').textContent=staffScore;
+  const cls=isCorrect?'correct':isClose?'partial':'incorrect';
+  const icon=isCorrect?'ti-circle-check':isClose?'ti-alert-circle':'ti-circle-x';
+  const head=isCorrect
+    ?`<i class="ti ${icon}"></i> ✓ Correct! — $${correct.toFixed(2)}`
+    :isClose
+    ?`<i class="ti ${icon}"></i> Close — you entered $${userAns.toFixed(2)}, correct is $${correct.toFixed(2)}`
+    :`<i class="ti ${icon}"></i> Not quite — you entered $${userAns.toFixed(2)}, correct is $${correct.toFixed(2)}`;
+  const expHtml=sc.explanation
+    ?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,.1)">
+        <strong style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;opacity:.7">Step-by-step breakdown</strong>
+        <p style="margin-top:6px;font-size:13px;white-space:pre-line">${esc(sc.explanation)}</p>
+      </div>`:'';
+  document.getElementById('sq-feedback').innerHTML=`<div class="feedback ${cls}"><div style="font-weight:600;font-size:14px;margin-bottom:4px">${head}</div>${expHtml}</div>`;
+  const isLast=staffIdx===staffQueue.length-1;
+  show('sq-next-wrap');
+  const nb=document.getElementById('sq-next-btn');
+  nb.textContent=isLast?'See my results →':'Next question →';
+  nb.onclick=isLast?finishQuiz:()=>{staffIdx++;loadQ();};
+}
+function finishQuiz(){
+  hide('staff-quiz');show('staff-done');
+  const total=staffQueue.length;const pct=Math.round(staffScore/total*100);
+  document.getElementById('done-score').textContent=`${staffScore}/${total}`;
+  document.getElementById('done-total').textContent=`(${pct}%)`;
+  document.getElementById('done-msg').textContent=
+    pct===100?'Perfect score! Outstanding work.':
+    pct>=80?'Nice job! Review any missed questions with your admin.':
+    'Keep practicing — ask your admin to walk through the tricky ones.';
+  loadResults();
+  RESULTS.push({name:staffName,score:staffScore,total,date:new Date().toLocaleDateString()});
+  saveResults();
+}
+</script>
+</body>
+</html>
